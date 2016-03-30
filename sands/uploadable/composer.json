@@ -1,0 +1,25 @@
+{
+    "name": "sands/uploadable",
+    "description": "Uploadable Trait for Laravel 5 models",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zulfa Juniadi",
+            "email": "zulfajuniadi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/support": "~5.1",
+        "intervention/image": "^2.3"
+    },
+    "suggest": {
+        "ext-gd": "to use GD library based image processing.",
+        "ext-imagick": "to use Imagick based image processing."
+    },
+    "autoload": {
+        "psr-4": {
+            "Sands\\Uploadable\\": "src/"
+        }
+    }
+}
