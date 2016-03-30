@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "laravel/support": "~5.1",
+        "illuminate/support": "~5.0",
         "intervention/image": "^2.3"
     },
     "suggest": {
