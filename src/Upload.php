@@ -10,7 +10,14 @@ class Upload extends Model
     public static function boot()
     {
         self::deleted(function (Upload $upload) {
+
+            // remove file
             unlink($upload->path);
+
+            // remove directory
+            if (count(glob(dirname($upload->path) . '/*')) === 0) {
+                rmdir(dirname($upload->path));
+            }
         });
     }
 
