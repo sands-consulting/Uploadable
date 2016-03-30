@@ -14,10 +14,10 @@ class ResizeImage implements FilterInterface
         $image = app('image')->make($file->getPathname());
 
         $image->resize($config['width'], $config['height'], function ($constraint) use ($config) {
-            if ($config['maintainAspectRation']) {
+            if ($config['maintainAspectRatio'] != 'false') {
                 $constraint->aspectRatio();
             }
-            if ($config['doNotUpsize']) {
+            if ($config['doNotUpsize'] == 'true') {
                 $constraint->upsize();
             }
         });
@@ -25,12 +25,12 @@ class ResizeImage implements FilterInterface
         $image->save();
     }
 
-    public function __construct($width = null, $height = null, $maintainAspectRation = true, $doNotUpsize = false)
+    public function __construct($width = null, $height = null, $maintainAspectRatio = true, $doNotUpsize = false)
     {
         $this->config = [
             'width' => $width,
             'height' => $height,
-            'maintainAspectRation' => $maintainAspectRation,
+            'maintainAspectRatio' => $maintainAspectRatio,
             'doNotUpsize' => $doNotUpsize,
         ];
     }
