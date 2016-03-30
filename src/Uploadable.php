@@ -5,7 +5,7 @@ namespace Sands\Uploadable;
 use ReflectionClass;
 use Sands\Uploadable\Exceptions\IncorrectFilterInterfaceException;
 use Sands\Uploadable\Exceptions\UnknownFilterException;
-use Sands\Uploadable\Interfaces\FilterInterface;
+use Sands\Uploadable\FilterInterface;
 
 class Uploadable
 {
