@@ -48,9 +48,13 @@ trait UploadableTrait
         }
     }
 
-    protected function attachFiles()
+    protected function attachFiles($forType = null)
     {
         foreach ($this->uploadableConfig as $type => $filters) {
+            if ($forType && $type != $forType) {
+                continue;
+            }
+
             $request = app('request');
             if ($request->hasFile($type)) {
                 $files = $request->file($type);
@@ -66,9 +70,14 @@ trait UploadableTrait
         }
     }
 
-    protected function detachFiles()
+    protected function detachFiles($forType = null)
     {
-        $this->uploads->each(function ($model) {
+        if ($forType) {
+            $models = $this->uploads()->where('type', $forType)->get();
+        } else {
+            $models = $this->uploads;
+        }
+        $models->each(function ($model) {
             $model->delete();
         });
     }
