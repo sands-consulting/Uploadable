@@ -26,8 +26,8 @@ class Save implements FilterInterface
         ]);
     }
 
-    public function __construct($type = '')
+    public function __construct($type = 'original-')
     {
-        $this->type = $type ? $type . '-' : 'original-';
+        $this->type = $type ? $type . '-' : '';
     }
 }
