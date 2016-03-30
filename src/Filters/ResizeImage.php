@@ -25,7 +25,7 @@ class ResizeImage implements FilterInterface
         $image->save();
     }
 
-    public function __construct($width = null, $height = null, $maintainAspectRatio = true, $doNotUpsize = false)
+    public function __construct($width = 800, $height = 800, $maintainAspectRatio = true, $doNotUpsize = false)
     {
         $this->config = [
             'width' => $width,
