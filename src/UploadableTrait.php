@@ -21,9 +21,14 @@ trait UploadableTrait
         return $this->morphMany(Upload::class, 'uploadable');
     }
 
+    protected function getHashedPath($separator = '/')
+    {
+        return strtr(base64_encode(date('Ym')), '+/=', '-_,') . $separator . strtr(base64_encode(str_slug(get_class($this)) . $this->getKey()), '+/=', '-_,');
+    }
+
     public function getPath($type)
     {
-        $base = public_path('uploads') . DIRECTORY_SEPARATOR . str_slug(get_class($this)) . DIRECTORY_SEPARATOR . $this->getKey();
+        $base = public_path('uploads') . DIRECTORY_SEPARATOR . $this->getHashedPath(DIRECTORY_SEPARATOR);
         if (!file_exists($base)) {
             mkdir($base, 0777, true);
         }
@@ -32,22 +37,18 @@ trait UploadableTrait
 
     public function getUrl($type)
     {
-        return 'uploads/' . str_slug(get_class($this)) . '/' . $this->getKey();
+        return '/uploads/' . $this->getHashedPath();
     }
 
     protected function processFile($type, $file, $filters)
     {
         foreach ($filters as $config) {
             $filter = app('uploadable')->getFilter($config);
-            try {
-                $filter->process($type, $file, $this);
-            } catch (Exception $e) {
-                dd($filter);
-            }
+            $filter->process($type, $file, $this);
         }
     }
 
-    public function attachFiles()
+    protected function attachFiles()
     {
         foreach ($this->uploadableConfig as $type => $filters) {
             $request = app('request');
@@ -65,7 +66,7 @@ trait UploadableTrait
         }
     }
 
-    public function detachFiles()
+    protected function detachFiles()
     {
         $this->uploads->each(function ($model) {
             $model->delete();
