@@ -37,7 +37,7 @@ Add a `$uploadableConfig` array property inside your `model` file:
 
 ```php 
 protected $uploadableConfig = [
-	  // handle <input type="file" name="images"/> or <input type="file" name="images[]" multiple/>
+	// handle <input type="file" name="images"/> or <input type="file" name="images[]" multiple/>
     'images' => [
         'fix-image-orientation', // fixes the image orientation
         'save',                  // saves the image prefixed wth "original-"
@@ -47,6 +47,10 @@ protected $uploadableConfig = [
         'save:small',            // saves the image prefixed with "small-"
         'thumbnail-image:140',   // creates a 140px x 140px thumbnail of the image, resized then center cropped
         'save:thumbnail',        // saves the image prefixed with "thumbnail-"
+    ],
+    // handle <input type="file" name="images[main]"/> use 'dot' notation
+    'images.main' => [
+        ...
     ],
 ];
 ``` 
