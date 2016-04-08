@@ -16,6 +16,21 @@ trait UploadableTrait
         return $query;
     }
 
+    public function attachUpload($id)
+    {
+        Upload::find($id)->update([
+            'uploadable_id' => $this->id,
+            'uploadable_type' => get_class($this)
+        ]);
+    }
+
+    public function attachUploads($ids = [])
+    {
+        foreach ($ids as $id) {
+            $this->attachUpload($id);
+        }
+    }
+
     public function uploads()
     {
         return $this->morphMany(Upload::class, 'uploadable');
