@@ -42,14 +42,19 @@ trait UploadableTrait
 
     protected function processFile($type, $file, $filters)
     {
+        $responses = [];
         foreach ($filters as $config) {
             $filter = app('uploadable')->getFilter($config);
-            $filter->process($type, $file, $this);
+            if($response = $filter->process($type, $file, $this)) {
+                $responses[] = $response;
+            }
         }
+        return $responses;
     }
 
     protected function attachFiles($forType = null)
     {
+        $attached = [];
         foreach ($this->uploadableConfig as $type => $filters) {
             if ($forType && $type != $forType) {
                 continue;
@@ -63,11 +68,12 @@ trait UploadableTrait
                 }
                 foreach ($files as $file) {
                     if ($file->isValid()) {
-                        $this->processFile($type, $file, $filters);
+                        $attached[] = $this->processFile($type, $file, $filters);
                     }
                 }
             }
         }
+        return $attached;
     }
 
     protected function detachFiles($forType = null)

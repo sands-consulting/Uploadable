@@ -17,7 +17,7 @@ class Save implements FilterInterface
         copy($file->getPathname(), $path);
 
         // create db entry
-        $model->uploads()->create([
+        return $model->uploads()->create([
             'type' => $type,
             'name' => $fileName,
             'mime_type' => $file->getMimeType(),
