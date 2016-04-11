@@ -11,7 +11,7 @@ class ThumbnailImage implements FilterInterface
     {
         $image = app('image')->make($file->getPathname());
 
-        if ($image->height() > $image->width()) {
+        if ($image->height() < $image->width()) {
             $image->resize($this->size, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
