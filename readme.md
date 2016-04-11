@@ -3,6 +3,7 @@
 This package is to simplify upload handling in a Laravel application. Should work for both Laravel 5 and Lumen.
 
 Key features:
+
 1. Simple to use
 2. Extendable
 3. Handles both single and multiple uploads
